@@ -3,11 +3,12 @@
 // 
 
 import axios from 'axios'
+
 export default function ajax (url,data={},type="GET"){
     //一下函数返回response.data
     return new Promise (function ( resolve, reject ){
         //发送异步请求
-        let peomise
+        let promise
          if (type === 'GET') {
              //准备url query参数数据
              let dataStr = '' //数据拼接字符串

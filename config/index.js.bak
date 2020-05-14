@@ -10,6 +10,7 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
+		//代理，看解决跨域问题
     proxyTable: {
       '/qqq':{
         target: "https://github.com/search/",

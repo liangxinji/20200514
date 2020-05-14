@@ -15,10 +15,21 @@
   </div>
 </template>
 <script>
+// import {reqFoodCategorys, reqAddre} from './store'
 import FooterGuide from './components/FooterGuide/FooterGuide'
+
 export default {
   components:{
     FooterGuide
+  },
+   mounted (){
+    //  //#1
+    // this.$store.dispatch({
+    //   type: 'getAddress'
+    // })
+
+    //#2
+    this.$store.dispatch('getAddress');
   }
 }
 </script>
