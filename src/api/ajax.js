@@ -13,13 +13,14 @@ export default function ajax (url,data={},type="GET"){
              //准备url query参数数据
              let dataStr = '' //数据拼接字符串
              Object.keys(data).forEach( key  => {
-                 dataStr += key + '=' + dataStr[key] + '&'
+                 dataStr += key + '=' + data[key] + '&'
              })
              if (dataStr !== '') {
                 //这一步有什么意义？？ 把末尾的&去掉？
                  dataStr = dataStr.substring(0,dataStr.lastIndexOf('&'))
-                 alert(dataStr);
+                //  alert(dataStr);
                  url = url + '?' + dataStr;
+                //  alert(dataStr);
              }
              //发送请求
              promise = axios.get(url)

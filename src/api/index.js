@@ -17,7 +17,7 @@ export const reqFoodCategorys = () => ajax(BASE_URL+'/index_category');
 
 // [3、根据经纬度获取商铺列表](#3根据经纬度获取商铺列表)<br/>
 // export const reqShops = ({longtitude,latitude}) => ajax(`/shops`,{(longtitude,latitude});
-export const reqShops = (longtitude,latitude) => ajax(BASE_URL+`/shops`,{longtitude,latitude});
+export const reqShops = (latitude,longitude) => ajax(BASE_URL+`/shops`,{latitude,longitude});
 
 // [4、根据经纬度和关键字搜索商铺列表](#4根据经纬度和关键字搜索商铺列表)<br/>
 export const reqSearchShops = (geohash,keyword) => ajax(BASE_URL+'/search_shops',{geohash,keyword});

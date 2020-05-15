@@ -1,7 +1,7 @@
 <template>
   <section class="msite">
     <!--首页头部-->
-    <HeaderTop title="昌平区北七家宏福科技园(337省道北)">
+    <HeaderTop :title="address.name">
         <span class="header_search" slot="left">
             <i class="iconfont icon-sousuo"></i>
         </span>
@@ -13,57 +13,15 @@
     <nav class="msite_nav">
       <div class="swiper-container">
         <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <a href="javascript:" class="link_to_food">
+          <div class="swiper-slide" v-for="( categorys ,index) in categorysArray" :key="index">
+            <a href="javascript:" class="link_to_food" v-for="( category ,index) in categorys" :key="index" >
               <div class="food_container">
-                <img src="./images/nav/1.jpg" />
+                <img :src="BASE_IMGURL + category.image_url" />
               </div>
-              <span>甜品饮品</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/2.jpg" />
-              </div>
-              <span>商超便利</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/3.jpg" />
-              </div>
-              <span>美食</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/4.jpg" />
-              </div>
-              <span>简餐</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/5.jpg" />
-              </div>
-              <span>新店特惠</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/6.jpg" />
-              </div>
-              <span>准时达</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/7.jpg" />
-              </div>
-              <span>预订早餐</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/8.jpg" />
-              </div>
-              <span>土豪推荐</span>
+              <span>{{category.title}}</span>
             </a>
           </div>
-          <div class="swiper-slide">
+          <!-- <div class="swiper-slide">
             <a href="javascript:" class="link_to_food">
               <div class="food_container">
                 <img src="./images/nav/9.jpg" />
@@ -112,7 +70,7 @@
               </div>
               <span>土豪推荐</span>
             </a>
-          </div>
+          </div> -->
         </div>
         <!-- Add Pagination -->
         <div class="swiper-pagination"></div>
@@ -132,11 +90,17 @@
 <script>
 import Swiper from 'swiper'
 import 'swiper/css/swiper.min.css'
+import {mapState} from 'vuex'
 
 import HeaderTop from '../../components/HeaderTop/HeaderTop'
 import ShopList from '../../components/ShopList/ShopList'
 export default {
-  name: "Msite",
+  data(){
+    return {
+      BASE_IMGURL:'https://fuss10.elemecdn.com'
+    }
+  },
+  
   components: {
     HeaderTop,
     ShopList
@@ -147,12 +111,38 @@ export default {
       loop:true,//可以循环轮播
       //若需要分页器
       pagination :{
-        el:'.swiper-pagination'
-        
-      },
-    })
+        el:'.swiper-pagination' 
+      }
+    });
+    this.$store.dispatch('getAddress');
+    this.$store.dispatch('getCategorys');
+    this.$store.dispatch('getShops');
+  },
+  computed:{
+    ...mapState (['address','categorys','shops']),
+    categorysArray () {
+      const { categorys } = this;
+      const Arry = [];
+      let Minarr = [];
+      categorys.forEach( c=>{
+        if(Minarr.length == 0 ){
+          Arry.push(Minarr);
+        }
+          Minarr.push(c);
+        if(Minarr.length == 8 ){
+          Minarr = []
+        }
+
+      })
+      console.log(Arry)
+      return Arry
+    }
+
   }
-};
+  
+    
+  
+}
 </script>
 <style lang="stylus">
  @import '../../common/stylus/mixins.styl'

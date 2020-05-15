@@ -6,37 +6,39 @@ import {
 } from './mutation-types'
 import {
     reqAddress,
-    reqCaptcha,
-    reqFoodCategorys,
-    reqLogOut,
-    reqPswLogin,
-    reqSearchShops,
-    reqSendCode,
     reqShops,
-    reqSmsLog,
-    reqUserInfo
+    reqFoodCategorys,
+    // reqLogOut,
+    // reqPswLogin,
+    // reqSearchShops,
+    // reqSendCode,
+    
+    // reqCaptcha,
+    // reqSmsLog,
+    // reqUserInfo
 } from '../api'
 
 export default {
     //异步获取地址
     async getAddress({ commit, state }) {
-        console.log('success')
         //发送异步ajax请求
-        const geohash = state.longitude + ',' + state.latitude
+        const geohash = state.latitude + ',' + state.longitude
         const result = await reqAddress(geohash)
+       
         //提交一个mutation
-        if (code === '0') {
+        if (result.code === 0) {
             const address = result.data
-            commit(RECEIVE_ADDRESS, { geohash })
+            commit(RECEIVE_ADDRESS, { address })
         }
     },
     //异步获取食品分类   
-    async getCategorys({ commit }) {
+    async getCategorys({commit}) {
         //发送异步ajax请求
         const result = await reqFoodCategorys()
         //提交一个mutation
-        if (code === '0') {
+        if (result.code === 0) {
             const categorys = result.data
+            console.log(categorys)
             commit(RECEIVE_CATEGORYS, { categorys })
         }
     },
@@ -44,13 +46,12 @@ export default {
 
     async getShops({ commit, state }) {
         //发送异步ajax请求
-        const { longtitude, latidude } = state
-
-        const result = await reqShops(longtitude, latidude)
+        const { latitude, longitude } = state
+        const result = await reqShops(latitude,longitude  )
         //提交一个mutation
-        if (code === '0') {
+        if (result.code === 0) {
             const shops = result.data
-            commit(RECEIVE_SHOPS, { shops })
+            commit(RECEIVE_SHOPS, {shops})
         }
     }
 }

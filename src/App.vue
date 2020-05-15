@@ -29,7 +29,9 @@ export default {
     // })
 
     //#2
-    this.$store.dispatch('getAddress');
+    // this.$store.dispatch('getAddress');
+    // this.$store.dispatch('getCategorys');
+    // this.$store.dispatch('getShops');
   }
 }
 </script>
